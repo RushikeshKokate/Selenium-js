@@ -1,9 +1,12 @@
 const { By, Key, Builder, until } = require('selenium-webdriver');
 require('chromedriver');
+const chrome = require('selenium-webdriver/chrome');
 const test_case = require('./loginTest'); // Import the test_case function
+const chromeOptions = new chrome.Options();
+chromeOptions.addArguments('--headless')
 
 async function signUpTest() {
-    let driver = await new Builder().forBrowser('chrome').build();
+    let driver = await new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
 
     try {
         await driver.get('https://portal.tradebrains.in/');

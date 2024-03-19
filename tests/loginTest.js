@@ -1,8 +1,12 @@
 const { By, Key, Builder } = require("selenium-webdriver");
+const chrome = require('selenium-webdriver/chrome')
 require("chromedriver");
 
+const Options = new chrome.Options()
+Options.addArguments('--headless')
+
 async function test_case() {
-    let driver = await new Builder().forBrowser("chrome").build();
+    let driver = await new Builder().forBrowser("chrome").setChromeOptions(Options).build();
 
     try {
         await driver.get("https://portal.tradebrains.in/");
