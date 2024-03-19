@@ -1,0 +1,30 @@
+{
+  "name": "selenium-js",
+  "version": "1.0.0",
+  "description": "The testing is done in order to automate the stocks availabilty and data validation on the portal.tradebrains.in",
+  "main": "signUp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RushikeshKokate/Selenium-js.git"
+  },
+  "keywords": [
+    "Testing",
+    "Selenium",
+    "JavaScript",
+    "Automation"
+  ],
+  "author": "Younus-Saberi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RushikeshKokate/Selenium-js/issues"
+  },
+  "homepage": "https://github.com/RushikeshKokate/Selenium-js#readme",
+  "dependencies": {
+    "chromedriver": "^122.0.6",
+    "selenium": "^2.20.0",
+    "selenium-webdriver": "^4.18.1"
+  }
+}

@@ -40,9 +40,6 @@ async function signUpTest() {
         let nextButton2 = await driver.findElement(By.xpath('//*[@id="passwordNext"]'));
         await nextButton2.click();
         console.log("Next button clicked");
-       
-        // let continueButton = await driver.findElement(By.xpath('//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[2]/div/div/div[2]/div/div/button'))
-        // await continueButton.click();
 
         let continueButton = await driver.wait(until.elementLocated(By.xpath('//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[2]/div/div/div[2]/div/div/button/span')), 60000);
         await continueButton.click();
@@ -61,7 +58,7 @@ async function signUpTest() {
     } catch (error) {
         console.error("Error:", error);
     } finally {
-       
+       //TODO: Need to add up
     }
     test_case()
 }
@@ -69,56 +66,4 @@ async function signUpTest() {
 signUpTest();
 
 
-
-// async function test_case() {
-//     let driver = await new Builder().forBrowser("chrome").build();
-
-//     try {
-//         await driver.get("https://portal.tradebrains.in/");
-
-//         // Find the button by its Tailwind CSS class and click it
-//         let button = await driver.findElement(By.css('.br-5'));
-//         await button.click();
-
-//         console.log("#Test 1 passed")
-
-//         await driver.manage().setTimeouts({implicit:5000});
-//         // Find the "Login with Email" button and click it to enter the login page
-//         let withEmailBtn = await driver.findElement(By.xpath("//div[contains(@class, 'bg-dark-black')]//p[contains(text(), 'Sign in With Email')]"));
-//         await withEmailBtn.click();
-
-//         console.log("#Test 2 passed")
-        
-
-//         let emailInput = await driver.findElement(By.id('login_email'))
-//         await emailInput.click()
-//         await emailInput.sendKeys('rushikesh.kokate@tradebrains.in')
-
-//         console.log("3 passed")
-
-//         let passwordInput = await driver.findElement(By.id('login_password'))
-//         await passwordInput.click()
-//         await passwordInput.sendKeys('Usha@123')
-
-//         console.log("4 passed")
-
-//         // Log the title after the button is clicked
-//         let title = await driver.getTitle();
-//         console.log("Page Title:", title);
-
-//         await driver.manage().setTimeouts({implicit:5000});
-//         // Perform your desired action based on the title
-//         // For example, if(title === "sign in")
-//         let submit = await driver.findElement(By.css('.h-42'))
-//         await submit.click()
-        
-
-//         console.log("5 passed")
-//     } catch (error) {
-//         console.error("Error:", error);
-//     } finally {
-//         // Close the WebDriver
-//         //await driver.quit();
-//     }
-// }
 
