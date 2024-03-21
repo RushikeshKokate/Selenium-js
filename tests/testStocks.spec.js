@@ -1,7 +1,11 @@
 const { Builder, By, assert, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const fs = require("fs");
-const { elementIsDisabled, elementLocated } = require("selenium-webdriver/lib/until");
+const {
+  elementIsDisabled,
+  elementLocated,
+} = require("selenium-webdriver/lib/until");
+const { setTimeout } = require("timers/promises");
 
 // Create a test suite using Mocha
 describe("NA Values Test", function () {
@@ -13,42 +17,67 @@ describe("NA Values Test", function () {
     options.addArguments("--headless");
 
     // Create a WebDriver instance with Chrome
-    let driver = await new Builder()
-      .forBrowser("chrome")
-      .build();
-      //.setChromeOptions(options)
+    let driver = await new Builder().forBrowser("chrome").build();
+    //.setChromeOptions(options)
 
     try {
       // Navigate to the web page
-      await driver.get("https://portal.tradebrains.in/stock/INDUSINDBK/consolidated");
+      await driver.get(
+        "https://portal.tradebrains.in/stock/INDUSINDBK/consolidated"
+      );
 
-      let plusBtns = await driver.wait(until.elementsLocated(By.css('button.ant-table-row-expand-icon.ant-table-row-expand-icon-collapsed[aria-label="Expand row"][aria-expanded="false"]')), 5000)
+      let plusBtns = await driver.wait(
+        until.elementsLocated(
+          By.css(
+            'button.ant-table-row-expand-icon.ant-table-row-expand-icon-collapsed[aria-label="Expand row"][aria-expanded="false"]'
+          )
+        ),
+        5000
+      );
 
       for (const btn of plusBtns) {
         await btn.click();
       }
 
-    //   let childBtns = await driver.wait(until.elements(By.css('button.ant-table-row-expand-icon.ant-table-row-expand-icon-collapsed[aria-label="Expand row"][aria-expanded="false"]')), 5000)
+    //   setTimeout(async()=>{
+    //     let childBtns = await driver.wait(until.elements(By.css('button.ant-table-row-expand-icon.ant-table-row-expand-icon-collapsed[aria-label="Expand row"][aria-expanded="false"]')), 5000)
+    //     for (const btn of childBtns) {
+    //         await btn.click()
+    //         console.log(btn)
+    //     }
+    //   }, 5000)
 
-    //   for (const btn of childBtns) {
-    //     await btn.click()
-    //   }
+    //     for (const btn of childBtns) {
+    //       await btn.click()
+    //     }
 
-      // Find all elements on the page
-      // let elements = await driver.findElement(By.xpath('//*[@id="my-scroll-layout"]'));
-      // let divContent = await elements.getText();
+      //Find all elements on the page
+      let elements = await driver.findElement(By.xpath('//*[@id="my-scroll-layout"]'));
+      let divContent = await elements.getText();
+
+      let lines = divContent.split('\n')
 
       // Create an array to store the log data
       let logData = [];
 
+      for (let i = 0; i < lines.length; i++) {
+        let currentLine = lines[i]
+
+        if(currentLine.includes("NA")){
+            let previousLine = i > 0 ? lines[i-1] : ""
+            logData.push("NA value found for ==> "+previousLine)
+            logData.push(currentLine)
+        }
+      }
+
       // Get the text of the element
       // Check if the text contains "NA"
-      // if (divContent.includes("NA")) {
-      // Log the element containing "NA"
-      //   console.log("NA value found:", divContent);
-      // Store the log data in the array
-      //   logData.push("NA value found: " + divContent);
-      // }
+    //   if (divContent.includes("NA")) {
+    //  // Log the element containing "NA"
+    //     console.log("NA value found:", divContent);
+    //  // Store the log data in the array
+    //     logData.push("NA value found: " + divContent);
+    //   }
 
       // Write the log data to a text file
       fs.writeFileSync("log.txt", logData.join("\n"));
