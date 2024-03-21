@@ -6,7 +6,7 @@ const Options = new chrome.Options()
 Options.addArguments('--headless')
 
 async function test_case() {
-    let driver = await new Builder().forBrowser("chrome").setChromeOptions(Options).build();
+    let driver = await new Builder().forBrowser("chrome").build();
 
     try {
         await driver.get("https://portal.tradebrains.in/");
