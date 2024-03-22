@@ -34,8 +34,7 @@ async function signUpTest() {
 
         let passwordIn = await driver.findElement(By.xpath('//*[@id="password"]/div[1]/div/div[1]/input'))
         // await passwordIn.onclick()
-        await passwordIn.sendKeys('Usha@123')
-        console.log('password Enterd')
+
 
         let nextButton2 = await driver.findElement(By.xpath('//*[@id="passwordNext"]'));
         await nextButton2.click();

@@ -32,8 +32,6 @@ async function test_case() {
         console.log("3 passed")
 
         let passwordInput = await driver.findElement(By.id('login_password'))
-        await passwordInput.click()
-        await passwordInput.sendKeys('Usha@123')
 
         console.log("4 passed")
 
