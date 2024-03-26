@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --timeout 60000 --reporter nyan",
     "test:awesome": "mocha --reporter mochawesome",
-    "open:report":"open mochawesome-report/mochawesome.html"
+    "open:report": "open mochawesome-report/mochawesome.html"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "dependencies": {
     "assert": "^2.1.0",
     "chromedriver": "^122.0.6",
+    "js-yaml": "^4.1.0",
     "mocha": "^10.3.0",
     "mochawesome": "^7.1.3",
     "selenium": "^2.20.0",
