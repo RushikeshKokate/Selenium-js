@@ -9,13 +9,8 @@ function appendToYAML(stockName, data) {
     let yamlData;
     try {
       // Read existing YAML file
-      yamlData = yaml.safeLoad(fs.readFileSync("main-log.yaml", 'utf8'));
-    } catch (e) {
-      // If the file doesn't exist or is empty, initialize an empty object
-      yamlData = {};
-    }
-  
-    // Check if the stockName already exists in the YAML data
+      yamlData = yaml.load(fs.readFileSync("main-log.yaml", 'utf8'));
+          // Check if the stockName already exists in the YAML data
     if (yamlData.hasOwnProperty(stockName)) {
       // If it exists, append the new data to the existing data array
       yamlData[stockName].push(data);
@@ -24,6 +19,11 @@ function appendToYAML(stockName, data) {
       yamlData[stockName] = data;
     }
   
+    } catch (e) {
+      // If the file doesn't exist or is empty, initialize an empty object
+      yamlData = {};
+    }
+
     // Write the updated YAML data to the file
     fs.writeFileSync("main-log.yaml", yaml.dump(yamlData));
   }
@@ -57,17 +57,20 @@ async function main() {
       let lines = divContent.split('\n');
       
       let logDataArray = [];
-      // Store the scraped data in the YAML file
-      for(let i = 0; i < lines.length; i++) {
-        let currentLine = lines[i];
-        if (currentLine.match("NA")) {
-          previousLine = i > 0 ? lines[i - 1] : "";
-          let data = {};
-          data[previousLine.trim()] = currentLine.trim();
-          logDataArray.push(data);
-        }
-      }
-      appendToYAML(stockName, logDataArray);
+
+// Store the scraped data in the logDataArray
+for (let i = 0; i < lines.length; i++) {
+  let currentLine = lines[i];
+  if (currentLine.match("NA")) {
+    previousLine = i > 0 ? lines[i - 1] : "";
+    let data = {};
+    data[previousLine.trim()] = currentLine.trim();
+    logDataArray.push(data);
+  }
+}
+// Append the YAML data to an existing file or create a new one
+appendToYAML(stockName, logDataArray);
+
 
       // Wait for a specified duration before processing the next stock
       await sleep(5000); // Adjust the duration (in milliseconds) as needed
